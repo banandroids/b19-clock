@@ -23,27 +23,28 @@ class ClockView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    val calendar: Calendar = GregorianCalendar.getInstance()
-    val paint: Paint = Paint() // кисть для рисования
+    val calendar: Calendar = GregorianCalendar.getInstance() // календарик
+    val paint: Paint = Paint() // кисть для рисования линий
 
-    var seconds: Float = calendar.get(Calendar.SECOND).toFloat()
-    val animator: ValueAnimator = ValueAnimator()
+    var seconds: Float = calendar.get(Calendar.SECOND).toFloat() // секунды
+    val animator: ValueAnimator = ValueAnimator() // аниматор секундной стрелки
 
-    var bgColor = Color.BLUE
+    var bgColor = Color.BLUE // цвет фона
 
-    private lateinit var scaleGestureDetector: ScaleGestureDetector
-    private lateinit var gestureDetector: GestureDetector
-    private var scale = 1f
-    private var dX = 0f
-    private var dY = 0f
+    private lateinit var scaleGestureDetector: ScaleGestureDetector // детектор scale-жеста
+    private lateinit var gestureDetector: GestureDetector // детектор остальных жестов
+    private var scale = 1f // масштаб
+    private var dX = 0f // смещение по X
+    private var dY = 0f // смещение по Y
 
     init {
         calendar.timeZone = TimeZone.getTimeZone("GMT+3")
 
-        paint.style = Paint.Style.STROKE // стиль (есть ещё FILL и FILL_AND_STROKE)
+        // настраиваем кисть
+        paint.style = Paint.Style.STROKE // стиль (есть ещё FILL - для заливки и FILL_AND_STROKE)
         paint.color = Color.WHITE // цвет
         paint.strokeWidth = 4f // ширина кисти для линий
-        paint.isAntiAlias = true // сглаживание
+        paint.isAntiAlias = true // сглаживание для линий
 
         val timer = Timer()
         val timerTask = object : TimerTask() {
